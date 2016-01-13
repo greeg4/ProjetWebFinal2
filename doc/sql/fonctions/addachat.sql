@@ -1,21 +1,21 @@
 
-create or replace function addAchat(integer, integer)
+create or replace function addachat(integer, integer)
 RETURNS integer as
 '
-    declare n_client alias for $1;
-    declare n_dvd alias for $2;
+    declare f_client alias for $1;
+    declare f_dvd alias for $2;
     declare id integer;
     declare idc integer;
     declare retour integer;
     begin
-	select into idc idClient from client where idClient=n_client;
+	select into idc idclient from client where idclient=f_client;
 	if not found then
 	    retour=2;
 	else
-	    insert into achat(idClient, idDVD, dateAchat) values (n_client, n_dvd, current_date);
-	    select into id idAchat from achat where idClient=n_client and
-						  idDVD=n_dvd and
-						  dateAchat=current_date;
+	    insert into achat(idclient, iddvd, dateachat) values (f_client, f_dvd, current_date);
+	    select into id idachat from achat where idclient=f_client and
+						  iddvd=f_dvd and
+						  dateachat=current_date;
 	    if not found then
 		retour=0;
 	    else
