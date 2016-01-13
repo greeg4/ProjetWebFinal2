@@ -2,20 +2,20 @@
 <?php
 if(isset($_GET['submitcatalogue'])) {
     extract($_GET,EXTR_OVERWRITE);
-    echo 'idCl : + $idCl + achat: + $achat';
-      if(trim($idCl)!='')
+    echo 'id_client : + $id_client + achat: + $achat';
+      if(trim($id_client)!='')
 	  {	  
             $mg2 = new achatManager($db);
             $retour = $mg2->getAchat($_GET);  
             if($retour==1)
             {
-                $texte="<span class='txtGras'>Demande enregistrée</span>";
+                $texte="<span class='txtGras'>Votre demande a bien été enregistrée</span>";
             }
 			if(isset($_SESSION['form'])) {unset($_SESSION['form']);}
             else
             {
-                $texte="Champs manquant.";
-                if(trim($idCl)!='') {$_SESSION['form']['idCl']=$idCl;}
+                $texte="Complétez tous les champs.";
+                if(trim($id_client)!='') {$_SESSION['form']['id_client']=$id_client;}
                 
             }
         }
@@ -31,20 +31,21 @@ if(isset($_GET['submitcatalogue'])) {
          ?>
                 <td>Votre ID : </td>
                 <td>
-                    <?php if(isset($_SESSION['form']['idCl'])) { ?>
-                        <input type="text" name="idCl" id="idCl" value="<?php print $_SESSION['form']['idCl'];?>"/>
+                    <?php if(isset($_SESSION['form']['id_client'])) { ?>
+                        <input type="text" name="id_client" id="id_client" value="<?php print $_SESSION['form']['id_client'];?>"/>
                     <?php
                     }
                     else {
                         ?>
-                        <input type="text" name="idCl" id="idCl" placeholder="Identifiant" required/>
+                        <input type="text" name="id_client" id="id_client" placeholder="Votre identifiant" required/>
                         <?php
                     }
                     ?>
                         <div id="error"></div>
                 </td>
             </tr>
-<tr><td>Titre</td><td>Prix</td><td>Genre</td><td>Support</td><td>Réalisateur</td><td>Commander</td></tr>
+
+<tr><td>Titre</td><td>Prix</td><td>Genre</td><td>Réalisateur</td><td>Support</td><td>Commander</td></tr>
 <?php
     for($i=0;$i<count($cat);$i++)
     {
@@ -53,11 +54,11 @@ if(isset($_GET['submitcatalogue'])) {
         $genre=$cat[$i]->genre;
         $realisateur=$cat[$i]->realisateur;
         $support=$cat[$i]->support;
-        $idDVD=$cat[$i]->idDVD;
+        $idj=$cat[$i]->iddvd;
         $nom="achat";
         $id="cc";
         $ty="radio";
-        print "<tr><td>{$titre}</td><td>{$prix}</td><td>{$genre}</td><td>{$support}</td><td>{$realisateur}</td><td><input type={$ty} name={$nom} id={$id} value={$idDVD}/></td></tr>";
+        print "<tr><td>{$titre}</td><td>{$prix}</td><td>{$genre}</td><td>{$realisateur}</td><td>{$support}</td><td><input type={$ty} name={$nom} id={$id} value={$idj}/></td></tr>";
     }
 ?>
 <tr> 
@@ -68,6 +69,6 @@ if(isset($_GET['submitcatalogue'])) {
                 &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
-<a href="index.php?page=printcat">PDF du catalogue</a>
+<a href="index.php?page=printcat">Version PDF de notre catalogue</a>
 </table>
 </form>

@@ -7,10 +7,10 @@ class catManager extends cat {
         $this->_db = $db;
     }
     
-    public function getjeuxall($titre, $support, $nomreal) {
+    public function getjeuxall($titre, $support, $realisateur) {
         try
         {
-            $query="SELECT * FROM dvdcat where titre={$titre} and support={$support} and nomreal={$nomreal}";
+            $query="SELECT * FROM dvdcat2 where titre={$titre} and nomsupp={$support} and nomreal={$realisateur}";
             //select * from jeu where avec categorie...
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
@@ -36,7 +36,7 @@ class catManager extends cat {
     public function getjeuxtc($titre, $support) {
         try
         {
-            $query="SELECT * FROM dvdcat where titre={$titre} and support={$support}";
+            $query="SELECT * FROM dvdcat2 where titre={$titre} and support={$support}";
             //select * from jeu where avec categorie...
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
@@ -59,10 +59,10 @@ class catManager extends cat {
         return $_accueilArray;        
     }
     
-    public function getjeuxtd($titre, $nomreal) {
+    public function getjeuxtd($titre, $realisateur) {
         try
         {
-            $query="SELECT * FROM dvdcat where titre={$titre} and nomreal={$nomreal}";
+            $query="SELECT * FROM dvdcat2 where titre={$titre} and nomreal={$realisateur}";
             //select * from jeu where avec categorie...
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
@@ -84,10 +84,10 @@ class catManager extends cat {
         }
         return $_accueilArray;        
     }
-    public function getjeuxcd( $support, $nomreal) {
+    public function getjeuxcd($support, $realisateur) {
         try
         {
-            $query="SELECT * FROM dvdcat where support={$support} and nomreal={$nomreal}";
+            $query="SELECT * FROM dvdcat2 where support={$support} and nomreal={$realisateur}";
             //select * from jeu where avec categorie...
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
@@ -113,7 +113,7 @@ class catManager extends cat {
     public function getjeuxt($titre) {
         try
         {
-            $query="SELECT * FROM dvdcat where titre={$titre}";
+            $query="SELECT * FROM dvdcat2 where titre={$titre}";
             //select * from jeu where avec categorie...
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
@@ -138,7 +138,7 @@ class catManager extends cat {
     public function getjeuxc($support) {
         try
         {
-            $query="SELECT * FROM dvdcat where support={$support}";
+            $query="SELECT * FROM dvdcat2 where s.nomsupp={$support}";
             //select * from jeu where avec categorie...
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
@@ -161,10 +161,10 @@ class catManager extends cat {
         return $_accueilArray;        
     }
     
-    public function getjeuxd($nomreal) {
+    public function getjeuxd($realisateur) {
         try
         {
-            $query="SELECT * FROM dvdcat where dev={$nomreal}";
+            $query="SELECT * FROM dvdcat2 where nomreal={$realisateur}";
             //select * from jeu where avec categorie...
             $resultset = $this->_db->prepare($query);
             $resultset->execute();
