@@ -1,77 +1,135 @@
-/*************** GENERALITES  ...........*/
-.txtGras {
-	font-weight:bold;
-}
-.txtMauv {
-    color:purple;
-}
+/*************** GENERAL  ...........*/
 .up {
     vertical-align:top;
 }
-
-/****************** accueil ***************/
-#chenil_img {
-    display:inline-block;
+#all_all img{
+    width: 100%
 }
+#titre_page{
+    font-style: italic;
+}
+#footerAc{
+    font-size: 120%;
+    color: orangered;
+    text-decoration: underline;
+    clear:both;
+    width:80%;
+    margin:0 auto;
+    text-align:center;
+}
+/****************** accueil ***************/
 #mot {
     display:inline-block;
     max-width:60%;
+    
 }
+#titreA{
+    color: blue;
+}
+.txtA {
+    color:red;
+    text-align:center;
+    margin-left: 350px;
+}
+.txtGras {
+    font-weight:bold;
+    font-size: 150%;
+    color: greenyellow;
+}
+#avertisst{
+    color: fuchsia;
+    font-size: 250%;
+    text-transform: uppercase;
+}
+#cacher{
+    font-weight: bold;
+}
+/****************** compte ***************/
+.txtCpte{
+    color:dodgerblue;
+}
+#formCpte{
+    text-align: center;
+    margin:auto;
+}
+/****************** catalogue ************/
+#tabCat { 
+    border-width:1px;
+    border-style:solid; 
+    border-color: rgb(255,128,0);
+    text-align: center;
+}
+.tabC{
+    text-align: center;    
+    margin: auto;    
+}
+#submitcatalogue{
+    font-family: Times New Romans;
+    font-size: 125%;
+    background-color: rgb(254,46,176);
+    color: rgb(0,255,0);
+}
+.txtC{
+    color: green;
+    font-weight: bold;
+}
+/****************** recherche ************/
 
+/****************** contact **************/
+.titreContact{
+    color: #EA5200;
+}
+.txtContact{
+    color: #0a0;
+}
+#tabContact{
+    text-align: center;
+    margin: auto;
+}
 /****************** Layout ***************/
 #page {
-	margin:0 auto;
-	width:90%; 
-	max-width:850px;/*m taille que header */
-	min-width:760px;
+    margin:0 auto;
+    width:90%; 
+    max-width:850px;/*m taille que header */
+    min-width:760px;
 }
 
 header {
-	margin:0 auto;
-	max-width:850px;
+    margin:0 auto;
+    max-width:850px;
 }
 
 #colGauche {
-	float:left;
-	width:18%;
-	margin-top:2%;
+    float:left;
+    width:18%;
+    margin-top:2%;
 }
 
 #menu li {
-	list-style-image:none;
-	text-align:left;
+    list-style-image:none;
+    text-align:left;
 }
 
 #contenu {
-	float:left;
-	margin-top:5%;
-	margin-left:2%;
-	width:80%;
+    float:left;
+    margin-top:5%;
+    margin-left:2%;
+    width:80%;
 }
 
 #main {
-	padding-left:1%;padding-right:1%;
-	width:100%;/* 80% des 75% */
-	display:inline-block;	
+    padding-left:1%;padding-right:1%;
+    width:100%;/* 80% des 75% */
+    display:inline-block;	
 }
-
-footer {
-	clear:both;
-	color:#888;
-	width:80%;
-	margin:0 auto;
-	text-align:center;
-}
-
 header img {
-	width:100%;
+    width:100%;
 }
 #login_form
 {
     background-color: blueviolet;
     width : 50%;
     height : 135px;
-    /*text-align:center;*/
     margin-left: 25%;
     margin-top : 5%;
 }

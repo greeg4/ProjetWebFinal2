@@ -8,17 +8,25 @@ class achatManager extends achat {
         $this->_db = $db;
     }
     
-    public function getAchat() {
-        try
-        {
-            
-	    $query="SELECT addachat(id_client,achat)";
-            $resultset = $this->_db->prepare($query);
-            $resultset->execute();
+    public function getAchat(array $data) {
+           
+	    $query="SELECT addachat(:id_client,:achat) as retour";
+            try
+            {
+            $id=null;
+            $statement = $this->_db->prepare($query);		
+            $statement->bindValue(1, $data['id_client'], PDO::PARAM_INT);
+            $statement->bindValue(2, (integer)$data['achat'], PDO::PARAM_INT);
+            $statement->execute();
+            $retour = $statement->fetchColumn(0);
+            return $retour;
         } 
-        catch(PDOException $e){
-            print $e->getMessage();
-        }
+        catch(PDOException $e) {
+            print "Echec de l'insertion : ".$e;
+            $retour=0;
+            return $retour;
+        }   
+        
         
         while($data = $resultset->fetch()){     
             try

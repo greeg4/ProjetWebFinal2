@@ -9,7 +9,7 @@ if(isset($_GET['submitcatalogue'])) {
             $retour = $mg2->getAchat($_GET);  
             if($retour==1)
             {
-                $texte="<span class='txtGras'>Votre demande a bien été enregistrée</span>";
+                $texte="<span class='txtC'>Demande enregistrée.</span>";
             }
 			if(isset($_SESSION['form'])) {unset($_SESSION['form']);}
             else
@@ -23,13 +23,13 @@ if(isset($_GET['submitcatalogue'])) {
 ?>
 <section id="resultat" class="txtGreen"><?php if(isset($texte)) print $texte; ?></section>
 <form id="formachat" action="<?php print $_SERVER['PHP_SELF'];?>" method="get">
-<table>
+<table class='tabC'>
      <tr>
          <?php
             $cm=new catManager($db);
             $cat=$cm->getCat($_GET);
          ?>
-                <td>Votre ID : </td>
+                <td>ID: </td>
                 <td>
                     <?php if(isset($_SESSION['form']['id_client'])) { ?>
                         <input type="text" name="id_client" id="id_client" value="<?php print $_SESSION['form']['id_client'];?>"/>
@@ -45,8 +45,8 @@ if(isset($_GET['submitcatalogue'])) {
                 </td>
             </tr>
 
-<tr><td>Titre</td><td>Prix</td><td>Genre</td><td>Réalisateur</td><td>Support</td><td>Commander</td></tr>
-<?php
+<tr><td id="tabCat">Titre</td><td id="tabCat">Prix</td><td id="tabCat">Genre</td><td id="tabCat">Réalisateur</td><td id="tabCat">Support</td><td id="tabCat">Commander</td></tr>
+<?php 
     for($i=0;$i<count($cat);$i++)
     {
         $titre=$cat[$i]->titre;
@@ -58,14 +58,13 @@ if(isset($_GET['submitcatalogue'])) {
         $nom="achat";
         $id="cc";
         $ty="radio";
-        print "<tr><td>{$titre}</td><td>{$prix}</td><td>{$genre}</td><td>{$realisateur}</td><td>{$support}</td><td><input type={$ty} name={$nom} id={$id} value={$idj}/></td></tr>";
+        print "<tr><td id='tabCat'>{$titre}</td><td id='tabCat'>{$prix}</td><td id='tabCat'>{$genre}</td><td id='tabCat'>{$realisateur}</td><td id='tabCat'>{$support}</td><td id='tabCat'><input type={$ty} name={$nom} id={$id} value={$idj}/></td></tr>";
     }
 ?>
 <tr> 
     <td></td><td></td><td></td><td></td><td></td><td></td>  <td colspan="2">
                     
 <input type="submit" name="submitcatalogue" id="submitcatalogue" value="Acheter"/>
-<!--<input type="hidden" name="hd" id="hd" value="hd"/>-->
                 &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>

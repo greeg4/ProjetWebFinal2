@@ -1,5 +1,5 @@
 <h2 id="titre_page"> Pour nous contacter </h2>
-<h3> Complétez ce formulaire pour nous contacter </h3>
+<h3 class="titreContact"> Formulaire à compléter </h3>
 
 <?php
 
@@ -9,7 +9,7 @@ if(isset($_GET['submit_reserv'])) {
         $mg2 = new contactManager($db);
         $retour = $mg2->addContact($_GET);
         if($retour==1){
-            $texte="<span class='txtGras'>Demande enregistrée.<br />Nous vous contacterons au plus vite.</span>";
+            $texte="<span class='txtGras'>Demande enregistrée.<br />Réponse dans les plus bref délais.</span>";
         }
         /*else if ($retour==2) { 'pas possible dans notre cas
             $texte="<span class='txtGras'>Déjà dans la base de données</span>";
@@ -32,8 +32,8 @@ if(isset($_GET['submit_reserv'])) {
 <section id="leform">
     <form id="form_contact" action="<?php print $_SERVER['PHP_SELF'];?>" method="get">
         <fieldset id="Client">
-        <legend class="txtMauv txtGras">Renseignements personnel : </legend>
-        <table>
+        <legend class="txtContact txtGras">Renseignements: </legend>
+        <table id="tabContact">
 		    <tr>
                 <td>Sexe : </td>
                 <td>Monsieur  <input type="radio" name="type" id="Homme" value="Homme" />                   
@@ -51,7 +51,7 @@ if(isset($_GET['submit_reserv'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="nom_client" id="nom_client" placeholder="Votre nom" required/>
+                        <input type="text" name="nom_client" id="nom_client" placeholder="Nom" required/>
                         <?php
                     }
                     ?>
@@ -67,7 +67,7 @@ if(isset($_GET['submit_reserv'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="pren_client" id="pren_client" placeholder="Votre Prenom" required/>
+                        <input type="text" name="pren_client" id="pren_client" placeholder="Prénom" required/>
                         <?php
                     }
                     ?>
@@ -83,7 +83,7 @@ if(isset($_GET['submit_reserv'])) {
                     }
                     else {
                         ?>
-                    <textarea name="comm_client" id="comm_client" rows="5" cols="22" placeholder="Votre commentaire" required/> </textarea>
+                    <textarea name="comm_client" id="comm_client" rows="5" cols="22" placeholder="Commentaire" required/> </textarea>
                         <?php
                     }
                     ?>
@@ -99,7 +99,7 @@ if(isset($_GET['submit_reserv'])) {
                     }
                     else {
                         ?>
-                    <input type="email" name="email" id="email" placeholder="Votre email"/>
+                    <input type="email" name="email" id="email" placeholder="Email"/>
                     <?php
                     }
                     ?>
@@ -108,9 +108,9 @@ if(isset($_GET['submit_reserv'])) {
 
             <tr>
                 <td colspan="2">
-                <input type="submit" name="submit_reserv" id="submit_reserv" value="Envoyer la demande" />
+                <input type="submit" name="submit_reserv" id="submit_reserv" value="Envoyer" />
                 &nbsp;&nbsp;&nbsp;
-                <input type="reset" id="reset" value="R&eacute;initialiser le formulaire" />
+                <input type="reset" id="reset" value="Remise à zéro du formulaire" />
                 </td>
             </tr>
             

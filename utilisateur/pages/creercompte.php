@@ -1,4 +1,4 @@
-<h2 id="titre_page"> Création d'un compte client </h2>
+<h2 id="titre_page"> Création d'un compte </h2>
 
 <?php
 
@@ -8,12 +8,9 @@ if(isset($_GET['submit_ccompte'])) {
         $mg2 = new creercompteManager($db);
         $retour = $mg2->addClient($_GET);
         if($retour>=0){
-            $texte="<span class='txtGras'>Votre demande a bien été enregistrée.</span>";
+            $texte="<span class='txtGras'>Demande enregistrée.</span>";
             print '$texte';
         }
-        /*else if ($retour==2) { 'pas possible dans notre cas
-            $texte="<span class='txtGras'>Déjà dans la base de données</span>";
-        }    */
         if(isset($_SESSION['form'])) {unset($_SESSION['form']);}                
     }
     else {
@@ -28,14 +25,14 @@ if(isset($_GET['submit_ccompte'])) {
     }
 }
 ?>
-<img src="../admin/images/banniereCompte.gif" alt="Image de clients" />
-<!--creer une table contact afin de mettre ces données dans la DB ?-->
+<img src="../admin/images/banniereCompte.gif" alt="Image compte" />
+
 <section id="resultat" class="txtGreen"><?php if(isset($texte)) print $texte; ?></section>
 <section id="leform">
     <form id="form_ccompte" action="<?php print $_SERVER['PHP_SELF'];?>" method="get">
         <fieldset id="Client">
-        <legend class="txtMauv txtGras">Renseignements personnel : </legend>
-        <table>
+        <legend class="txtCpte txtGras">Renseignements personnel : </legend>
+        <table id="formCpte">
             <tr>
                 <td>Nom : </td>
                 <td>
@@ -45,7 +42,7 @@ if(isset($_GET['submit_ccompte'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="nom_cc" id="nom_cc" placeholder="Votre Nom" required/>
+                        <input type="text" name="nom_cc" id="nom_cc" placeholder="Nom" required/>
                         <?php
                     }
                     ?>
@@ -61,7 +58,7 @@ if(isset($_GET['submit_ccompte'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="pren_cc" id="pren_cc" placeholder="Votre Prenom" required/>
+                        <input type="text" name="pren_cc" id="pren_cc" placeholder="Prenom" required/>
                         <?php
                     }
                     ?>
@@ -77,7 +74,7 @@ if(isset($_GET['submit_ccompte'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="adresse_cc" id="adresse_cc" placeholder="Votre Adresse" required/>
+                        <input type="text" name="adresse_cc" id="adresse_cc" placeholder="Adresse" required/>
                         <?php
                     }
                     ?>
@@ -95,7 +92,7 @@ if(isset($_GET['submit_ccompte'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="ville_cc" id="ville_cc" placeholder="Votre Ville" required/>
+                        <input type="text" name="ville_cc" id="ville_cc" placeholder="Ville" required/>
                         <?php
                     }
                     ?>
@@ -112,7 +109,7 @@ if(isset($_GET['submit_ccompte'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="cp_cc" id="cp_cc" placeholder="Votre CP" required/>
+                        <input type="text" name="cp_cc" id="cp_cc" placeholder="Code postal" required/>
                         <?php
                     }
                     ?>
@@ -129,7 +126,7 @@ if(isset($_GET['submit_ccompte'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="pays_cc" id="pays_cc" placeholder="Votre Pays" required/>
+                        <input type="text" name="pays_cc" id="pays_cc" placeholder="Pays" required/>
                         <?php
                     }
                     ?>
@@ -146,7 +143,7 @@ if(isset($_GET['submit_ccompte'])) {
                     }
                     else {
                         ?>
-                        <input type="text" name="num_cc" id="num_cc" placeholder="Votre Numero" required/>
+                        <input type="text" name="num_cc" id="num_cc" placeholder="Numero de téléphone" required/>
                         <?php
                     }
                     ?>
@@ -158,7 +155,7 @@ if(isset($_GET['submit_ccompte'])) {
                 <td colspan="2">
                 <input type="submit" name="submit_ccompte" id="submit_ccompte" value="Envoyer la demande" />
                 &nbsp;&nbsp;&nbsp;
-                <input type="reset" id="reset" value="R&eacute;initialiser le formulaire" />
+                <input type="reset" id="reset" value="Remise à zéro du formulaire" />
                 </td>
             </tr>
             
