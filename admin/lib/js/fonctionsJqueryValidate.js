@@ -15,13 +15,7 @@ $('form#form_reservation').validate({
 
             $(this).submit();
             $(this).reset();
-        }//,
-        /*
-        submitHandler: function(form) {
-        // do other things for a valid form
-           return true;
-        }        
-            */
+        }
     }
     
 });

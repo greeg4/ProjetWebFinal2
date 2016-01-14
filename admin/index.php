@@ -20,7 +20,6 @@ foreach(glob('./lib/js/jquery/*.js') as $js) {
         <meta charset='UTF-8'/>        
         <link rel="stylesheet" type="text/css" href="../utilisateur/lib/css/utcss.css"/>
 	<link rel="stylesheet" type="text/css" href="./lib/css/style_pc.css"/>
-        <link rel="stylesheet" type="text/css" href="./lib/css/style_jquery.css"/>
 	<link rel="stylesheet" type="text/css" href="./lib/css/mediaqueries.css"/>
          <?php
             foreach($fichierJs as $js) {
