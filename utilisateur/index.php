@@ -3,7 +3,12 @@
 include ('./lib/php/Jliste_include.php');
 $db = connexion::getInstance($dsn,$user,$pass);
 session_start();
-
+$styles = array();
+$i2 = 0;
+foreach (glob('./admin/lib/css/*.css') as $css) {
+    $styles[$i2] = $css;
+    $i2++;
+}
 $scripts=array(); //stocker tous les fichiers d'inlinemod pour les lier plus loin
 $i=0;
 foreach(glob('../admin/lib/js/jquery/*.js') as $js) {
@@ -17,8 +22,15 @@ foreach(glob('../admin/lib/js/jquery/*.js') as $js) {
     <head>
         <meta charset="utf-8">
         <title> DVD en folie </title>        
-        
-        <link rel="stylesheet" type="text/css" href="../utilisateur/lib/css/utcss.css" />
+        <link rel="stylesheet" type="text/css" href="./admin/lib/css/bootstrap-3.3.5-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="./admin/lib/css/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"/>
+        <?php
+        foreach ($styles as $css) {
+            ?><link rel="stylesheet" type="text/css" href="<?php print $css; ?>"/>
+            <?php
+        }
+        ?>
+        <link rel="stylesheet" type="text/css" href="../utilisateur/lib/css/p_style.css" />
         <link rel="stylesheet" type="text/css" href="../admin/lib/css/style_pc.css" />
         <link rel="stylesheet" type="text/css" href="../admin/lib/css/mediaqueries.css" />
         
@@ -36,7 +48,7 @@ foreach(glob('../admin/lib/js/jquery/*.js') as $js) {
 
     <section id="all_all">
         <header>
-            <img src="../admin/images/banniere.jpg" alt="SmartGames Banniere" />
+            <img src="../admin/images/banniere.jpg" alt="Banniere" id="image_header"/>
         </header>
         <section id="exemple">
             <div class="exemple" id="ex2">

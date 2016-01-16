@@ -4,6 +4,12 @@
 include ('./lib/php/liste_include.php');
 $db = Connexion::getInstance($dsn,$user,$pass);
 session_start();
+$styles = array();
+$i2 = 0;
+foreach (glob('./lib/css/*.css') as $css) {
+    $styles[$i2] = $css;
+    $i2++;
+}
 $scripts=array(); //stocker tous les fichiers d'inlinemod pour les lier plus loin
 $i=0;
 foreach(glob('./lib/js/jquery/*.js') as $js) {
@@ -17,8 +23,16 @@ foreach(glob('./lib/js/jquery/*.js') as $js) {
 <html>
 <head>
 	<title>DVD en folie</title>
-        <meta charset='UTF-8'/>        
-        <link rel="stylesheet" type="text/css" href="../utilisateur/lib/css/utcss.css"/>
+        <meta charset='UTF-8'/>    
+        <link rel="stylesheet" type="text/css" href="./lib/css/bootstrap-3.3.5-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="./lib/css/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"/>
+        <?php
+        foreach ($styles as $css) {
+            ?><link rel="stylesheet" type="text/css" href="<?php print $css; ?>"/>
+            <?php
+        }
+        ?>
+        <link rel="stylesheet" type="text/css" href="../utilisateur/lib/css/p_style.css"/>
 	<link rel="stylesheet" type="text/css" href="./lib/css/style_pc.css"/>
 	<link rel="stylesheet" type="text/css" href="./lib/css/mediaqueries.css"/>
          <?php

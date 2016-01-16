@@ -73,6 +73,11 @@
     color: green;
     font-weight: bold;
 }
+#pdf{
+    color: #0099FF;
+    margin-top: 200px;
+    position: absolute;
+}
 /****************** recherche ************/
 
 /****************** contact **************/
