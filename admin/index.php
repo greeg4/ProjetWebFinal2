@@ -56,7 +56,7 @@ foreach(glob('./lib/js/jquery/*.js') as $js) {
             
                 <?php
                     if(isset($_SESSION['admin'])){
-                        ?><a href="./lib/php/disconnect.php">Déconnexion</a>
+                        ?><a href="./lib/php/disconnect.php" class="bDec">Déconnexion</a>
                     <?php
                     }                   
                 ?>
@@ -115,7 +115,7 @@ foreach(glob('./lib/js/jquery/*.js') as $js) {
      
 	</section>		
 
-	<footer>Copyright 2015-2016 mathieu.lienard@condorcet.be</footer>
+	<footer id="footerAc">Copyright 2015-2016 mathieu.lienard@condorcet.be</footer>
               <?php 
              }
             ?>

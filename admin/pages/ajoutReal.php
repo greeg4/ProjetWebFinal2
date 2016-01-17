@@ -1,7 +1,7 @@
 <?php
 require './lib/php/verifier_connexion.php'; 
 ?>
-<h2>Ajouter un réalisateur</h2>
+<h2 class='titreReal'>Ajouter un réalisateur</h2>
 
 <?php
 
@@ -35,8 +35,8 @@ if(isset($_GET['submit_real'])) {
 <section id="leform">
     <form id="form_ajout_dev" action="<?php print $_SERVER['PHP_SELF'];?>" method="get">
         <fieldset id="Dev">
-        <legend class="txtMauv txtGras">Renseignements du réalisateur : </legend>
-        <table>
+        <legend class="txtReal">Renseignements du réalisateur : </legend>
+        <table class='tabReal'>
             <tr>
                 <td>Nom: </td>
                 <td>

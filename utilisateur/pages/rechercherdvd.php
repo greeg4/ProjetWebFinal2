@@ -101,8 +101,8 @@ if(isset($cat)){ ?>
 <?php if (!isset($cat)){ ?>
     <form id="form_rech" action="<?php print $_SERVER['PHP_SELF'];?>" method="get">
         <fieldset id="recherche">
-        <legend class="txtMauv txtGras">Recherche par: </legend>
-        <table>
+        <legend class="txtRech txtGras">Recherche: </legend>
+        <table id='tabRech'>
 		    <tr>
                 <td>Titre: </td>
                 <td><?php if(isset($_SESSION['form']['titre'])) { ?>

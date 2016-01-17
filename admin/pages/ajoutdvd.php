@@ -1,7 +1,7 @@
 <?php
 require './lib/php/verifier_connexion.php'; 
 ?>
-<h2>Ajouter dvd</h2>
+<h2 class='titreDvd'>Ajouter dvd</h2>
 
 <?php
 
@@ -25,15 +25,15 @@ if(isset($_GET['submit_dvd'])) {
     }
 }
 ?>
-<img src="../admin/images/banniereDvd.jpg" alt="Dvd" />
+<img src="../admin/images/banniereDvd.png" alt="Dvd" />
 &nbsp;
-<!--creer une table contact afin de mettre ces données dans la DB ?-->
+
 <section id="resultat" class="txtGreen"><?php if(isset($texte)) print $texte; ?></section>
 <section id="leform">
     <form id="form_ajout_jeu" action="<?php print $_SERVER['PHP_SELF'];?>" method="get">
         <fieldset id="Client">
-        <legend class="txtMauv txtGras">Renseignements: </legend>
-        <table>
+        <legend class="txtDvd">Renseignements</legend>
+        <table class="tabDvd">
             
            <tr>
                 <td>Titre : </td>
@@ -111,7 +111,7 @@ if(isset($_GET['submit_dvd'])) {
                 <td>Support : </td>
                 <td><select name="Support_dvd">
                         <?php
-                            for($i=0;$i<count($idsupport);$i++)
+                            for($i=0;$i<count($idsupp);$i++)
                             {
                                 $var=$idsupp[$i]->idsupp;
                                 $var2=$support[$i]->nomsupp;

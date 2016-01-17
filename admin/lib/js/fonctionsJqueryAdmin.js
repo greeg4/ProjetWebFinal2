@@ -1,13 +1,10 @@
 /* jquery pour admin */
 $(document).ready(function () {
 
-    $("#login_form").css('display', 'none');
-    //var statut = $('#deconnexion').val();
 
     $("#login_form").fadeIn(3000);
     $("#login").focus();
     $("#annuler").click(function () {
-        $("#login_form").fadeOut("2000");
         window.location.href = "../utilisateur/index.php";
     });
 

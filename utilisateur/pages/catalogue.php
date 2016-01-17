@@ -29,7 +29,6 @@ if(isset($_GET['submitcatalogue'])) {
             $cm=new catManager($db);
             $cat=$cm->getCat($_GET);
          ?>
-                <td>ID: </td>
                 <td>
                     <?php if(isset($_SESSION['form']['id_client'])) { ?>
                         <input type="text" name="id_client" id="id_client" value="<?php print $_SESSION['form']['id_client'];?>"/>
@@ -68,6 +67,6 @@ if(isset($_GET['submitcatalogue'])) {
                 &nbsp;&nbsp;&nbsp;
                 </td>
             </tr>
-<a id='pdf' href="index.php?page=printcat">Version PDF de notre catalogue</a>
+<a id='pdf' href="index.php?page=printcat">Cliquez ici pour le PDF du catalogue</a>
 </table>
 </form>

@@ -1,205 +1,169 @@
 <?php
 
-class AjoutJeuManager extends AjoutJeu
-{
-    private $_db;
-    private $_IdDeveloppeur=array();
-    private $_IdCategorie=array();
-    private $_Categorie=array();
+class AjoutDvdManager extends AjoutDvd {
 
-    private $_Developpeur=array();
-    private $_IdPlateforme=array();
-    private $_Plateforme=array();
-    
+    private $_db;
+    private $_IdRealisateur = array();
+    private $_IdGenre = array();
+    private $_Genre = array();
+    private $_Realisateur = array();
+    private $_IdSupport = array();
+    private $_Support = array();
+
     public function __construct($db) {
         $this->_db = $db;
     }
-    
+
     //Renvoie les id des categories
-    public function getCategId() {
-        try
-        {
-            
-	    $query="SELECT idcat FROM categorie";
-            $resultset = $this->_db->prepare($query);
-            $resultset->execute();
-        } 
-        catch(PDOException $e){
-            print $e->getMessage();
-        }
-        
-        while($data = $resultset->fetch()){     
-            try
-            {
-                $_IdCategorie[] = new ajoutjeu($data);
-
-            } 
-            catch(PDOException $e)
-            {
-                
-                print $e->getMessage();
-            }            
-        }
-        return $_IdCategorie;        
-    }
-    public function getCateg() {
-        try
-        {
-            
-	    $query="SELECT genre FROM categorie";
-            $resultset = $this->_db->prepare($query);
-            $resultset->execute();
-        } 
-        catch(PDOException $e){
-            print $e->getMessage();
-        }
-        
-        while($data = $resultset->fetch()){     
-            try
-            {
-                $_Categorie[] = new ajoutjeu($data);
-
-            } 
-            catch(PDOException $e)
-            {
-                
-                print $e->getMessage();
-            }            
-        }
-        return $_Categorie;        
-    }
-    
-    public function getDevId() {
-        try
-        {
-            
-	    $query="SELECT iddev FROM developpeur";
-            $resultset = $this->_db->prepare($query);
-            $resultset->execute();
-        } 
-        catch(PDOException $e){
-            print $e->getMessage();
-        }
-        
-        while($data = $resultset->fetch()){     
-            try
-            {
-                $_IdDeveloppeur[] = new ajoutjeu($data);
-
-            } 
-            catch(PDOException $e)
-            {
-                
-                print $e->getMessage();
-            }            
-        }
-        return $_IdDeveloppeur;        
-    }
-    public function getDeveloppeur() {
-     try
-     {
-
-         $query="SELECT nomdev FROM developpeur";
-         $resultset = $this->_db->prepare($query);
-         $resultset->execute();
-     } 
-     catch(PDOException $e){
-         print $e->getMessage();
-     }
-
-     while($data = $resultset->fetch()){     
-         try
-         {
-             $_Developpeur[] = new ajoutjeu($data);
-
-         } 
-         catch(PDOException $e)
-         {
-
-             print $e->getMessage();
-         }            
-     }
-     return $_Developpeur;        
- }
-    public function getPlateformeId() {
-     try
-     {
-
-         $query="SELECT idplateforme FROM plateforme";
-         $resultset = $this->_db->prepare($query);
-         $resultset->execute();
-     } 
-     catch(PDOException $e){
-         print $e->getMessage();
-     }
-
-     while($data = $resultset->fetch()){     
-         try
-         {
-             $_IdPlateforme[] = new ajoutjeu($data);
-
-         } 
-         catch(PDOException $e)
-         {
-
-             print $e->getMessage();
-         }            
-     }
-     return $_IdPlateforme;        
- }
-    public function getPLateform() {
-        try
-        {
-            
-	    $query="SELECT nomplateForme FROM plateforme";
-            $resultset = $this->_db->prepare($query);
-            $resultset->execute();
-        } 
-        catch(PDOException $e){
-            print $e->getMessage();
-        }
-        
-        while($data = $resultset->fetch()){     
-            try
-            {
-                $_Plateforme[] = new ajoutjeu($data);
-
-            } 
-            catch(PDOException $e)
-            {
-                
-                print $e->getMessage();
-            }            
-        }
-        return $_Plateforme;        
-    }
- 
- 
- public function addjeu(array $data)
-    {
-        
-        //var_dump($data);
-        $query="select addjeu(:Titre_jeu, :Prix_jeu, :Joueur_jeu, :Categorie_jeu, :Developpeur_jeu, :Plateforme_jeu) as retour" ;
+    public function getGenreId() {
         try {
-            $id=null;
-            $statement = $this->_db->prepare($query);		
-            $statement->bindValue(1, $data['Titre_jeu'], PDO::PARAM_STR);
-            $statement->bindValue(2, $data['Prix_jeu'], PDO::PARAM_STR);
-            $statement->bindValue(3, $data['Joueur_jeu'], PDO::PARAM_INT);
-            $statement->bindValue(4, $data['Categorie_jeu'], PDO::PARAM_INT);
-            $statement->bindValue(5, $data['Developpeur_jeu'], PDO::PARAM_INT);
-            $statement->bindValue(6, $data['Plateforme_jeu'], PDO::PARAM_INT);
+
+            $query = "SELECT idgenre FROM genre";
+            $resultset = $this->_db->prepare($query);
+            $resultset->execute();
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+
+        while ($data = $resultset->fetch()) {
+            try {
+                $_IdGenre[] = new ajoutdvd($data);
+            } catch (PDOException $e) {
+
+                print $e->getMessage();
+            }
+        }
+        return $_IdGenre;
+    }
+
+    public function getGenre() {
+        try {
+
+            $query = "SELECT genre FROM genre";
+            $resultset = $this->_db->prepare($query);
+            $resultset->execute();
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+
+        while ($data = $resultset->fetch()) {
+            try {
+                $_Genre[] = new ajoutdvd($data);
+            } catch (PDOException $e) {
+
+                print $e->getMessage();
+            }
+        }
+        return $_Genre;
+    }
+
+    public function getRealId() {
+        try {
+
+            $query = "SELECT idreal FROM realisateur";
+            $resultset = $this->_db->prepare($query);
+            $resultset->execute();
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+
+        while ($data = $resultset->fetch()) {
+            try {
+                $_IdRealisateur[] = new ajoutdvd($data);
+            } catch (PDOException $e) {
+
+                print $e->getMessage();
+            }
+        }
+        return $_IdRealisateur;
+    }
+
+    public function getRealisateur() {
+        try {
+
+            $query = "SELECT nomreal FROM realisateur";
+            $resultset = $this->_db->prepare($query);
+            $resultset->execute();
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+
+        while ($data = $resultset->fetch()) {
+            try {
+                $_Realisateur[] = new ajoutdvd($data);
+            } catch (PDOException $e) {
+
+                print $e->getMessage();
+            }
+        }
+        return $_Realisateur;
+    }
+
+    public function getSupportId() {
+        try {
+
+            $query = "SELECT idsupp FROM support";
+            $resultset = $this->_db->prepare($query);
+            $resultset->execute();
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+
+        while ($data = $resultset->fetch()) {
+            try {
+                $_IdSupport[] = new ajoutdvd($data);
+            } catch (PDOException $e) {
+
+                print $e->getMessage();
+            }
+        }
+        return $_IdSupport;
+   }
+
+    public function getNomSupp() {
+        try {
+
+            $query = "SELECT nomsupp FROM support";
+            $resultset = $this->_db->prepare($query);
+            $resultset->execute();
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+
+        while ($data = $resultset->fetch()) {
+            try {
+                $_Support[] = new ajoutdvd($data);
+            } catch (PDOException $e) {
+
+                print $e->getMessage();
+            }
+        }
+        return $_Support;
+    }
+
+    public function adddvd(array $data) {
+
+        //var_dump($data);
+        $query = "select adddvd(:Titre_dvd, :Prix_dvd, :Genre_dvd, :Realisateur_dvd, :Support_dvd) as retour";
+        try {
+            $id = null;
+            $statement = $this->_db->prepare($query);
+            $statement->bindValue(1, $data['Titre_dvd'], PDO::PARAM_STR);
+            $statement->bindValue(2, $data['Prix_dvd'], PDO::PARAM_STR);
+            $statement->bindValue(3, $data['Genre_dvd'], PDO::PARAM_INT);
+            $statement->bindValue(4, $data['Realisateur_dvd'], PDO::PARAM_INT);
+            $statement->bindValue(5, $data['Support_dvd'], PDO::PARAM_INT);
 
             $statement->execute();
             $retour = $statement->fetchColumn(0);
             return $retour;
-        } 
-        catch(PDOException $e) {
-            print "Echec de l'insertion : ".$e;
-            $retour=0;
+        } catch (PDOException $e) {
+            print "Echec de l'insertion : " . $e;
+            $retour = 0;
             return $retour;
-        }   
+        }
     }
+
 }
 ?>
 

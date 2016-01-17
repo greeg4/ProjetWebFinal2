@@ -7,6 +7,8 @@
 }
 #titre_page{
     font-style: italic;
+    color: blueviolet;
+    background-color: darkgray;
 }
 #footerAc{
     font-size: 120%;
@@ -17,24 +19,21 @@
     margin:0 auto;
     text-align:center;
 }
+/****************** UTILISATEUR *************/
 /****************** accueil ***************/
 #mot {
     display:inline-block;
-    max-width:60%;
-    
+    max-width:60%;    
 }
 #titreA{
     color: blue;
+    background-color: white;
 }
 .txtA {
     color:red;
     text-align:center;
     margin-left: 350px;
-}
-.txtGras {
-    font-weight:bold;
-    font-size: 150%;
-    color: greenyellow;
+    background-color: gold;
 }
 #avertisst{
     color: fuchsia;
@@ -44,13 +43,23 @@
 #cacher{
     font-weight: bold;
 }
+.txtSa{
+    font-weight:bold;
+    font-size: 150%;
+    color: black;
+    text-shadow: 5px 5px 5px rgb(241,29,119);
+}
 /****************** compte ***************/
 .txtCpte{
     color:dodgerblue;
+    font-weight: bold;
+    background-color: white;
+    font-size: 150%;
 }
 #formCpte{
     text-align: center;
     margin:auto;
+    background-color: window;    
 }
 /****************** catalogue ************/
 #tabCat { 
@@ -58,6 +67,7 @@
     border-style:solid; 
     border-color: rgb(255,128,0);
     text-align: center;
+    background-color: #F2EFE9;
 }
 .tabC{
     text-align: center;    
@@ -69,36 +79,43 @@
     background-color: rgb(254,46,176);
     color: rgb(0,255,0);
 }
-.txtC{
-    color: green;
-    font-weight: bold;
-}
 #pdf{
     color: #0099FF;
     margin-top: 200px;
     position: absolute;
 }
 /****************** recherche ************/
-
+#tabRech{
+    text-align: center;    
+    margin: auto;  
+    background-color: window;
+}
+.txtRech{
+    color: #d9534f;
+    background-color: white; 
+    font-size: 150%;
+}
 /****************** contact **************/
 .titreContact{
     color: #EA5200;
 }
 .txtContact{
     color: #0a0;
+    background-color: white;
+    font-size: 150%;
 }
 #tabContact{
     text-align: center;
     margin: auto;
+    background-color: window;
 }
 /****************** Layout ***************/
 #page {
     margin:0 auto;
     width:90%; 
-    max-width:850px;/*m taille que header */
+    max-width:850px;
     min-width:760px;
 }
-
 header {
     margin:0 auto;
     max-width:850px;
@@ -123,18 +140,85 @@ header {
 }
 
 #main {
-    padding-left:1%;padding-right:1%;
-    width:100%;/* 80% des 75% */
+    padding-left:1%;
+    padding-right:1%;
+    width:100%;
     display:inline-block;	
 }
 header img {
-    width:100%;
+    width:200%;
+}
+/*-----------------------------------------------------------------------------------------------*/
+/****************** ADMIN ********************/
+/********** general *********************/
+.bDec{
+    position: absolute;
+    text-transform: uppercase;
+    margin-left: 350px;
+    margin-top: 20px;
+}
+/********** authentification *************/
+.txtAuth{
+    color: brown;
+}
+#auth{
+    font-size: 125%;
+    text-transform: uppercase;
+    background-color: white;
+}
+.bAth{
+    font-size: 150%;
+}
+#form_auth{
+    background-image: url("http://www.stickoo.fr/client/cache/produit/500_______chaise_cinema_g_1113.jpg");
 }
 #login_form
 {
-    background-color: blueviolet;
     width : 50%;
     height : 135px;
     margin-left: 25%;
     margin-top : 5%;
+    background-color: white;
+}
+/********** accueil *****************/
+.txtAdminA{
+    color: red;
+    background-color: white;
+}
+.txtAdmin{
+    background-color: greenyellow;
+    color: cadetblue;
+    font-size: 115%;
+}
+/********** ajoutDvd **************/
+.tabDvd{
+    text-align: center;    
+    margin: auto;  
+    background-color: window;
+}
+.txtDvd{
+    color: springgreen;
+    background-color: white;
+    font-size: 150%;
+}
+.titreDvd{
+    font-style: italic;
+    color: blueviolet;
+    background-color: darkgray;
+}
+/*********** ajoutReal **************/
+.titreReal{
+    font-style: italic;
+    color: blueviolet;
+    background-color: darkgray;
+}
+.tabReal{
+    text-align: center;    
+    margin: auto;  
+    background-color: window;
+}
+.txtReal{
+    color: plum;
+    background-color: white;
+    font-size: 150%;
 }

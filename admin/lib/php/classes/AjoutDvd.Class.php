@@ -11,7 +11,7 @@
  *
  * @author ametau
  */
-class AjoutJeu {
+class AjoutDvd {
      private $_attributs = array();
   
   public function __construct(array $data) {

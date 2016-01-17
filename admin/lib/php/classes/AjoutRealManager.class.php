@@ -1,6 +1,6 @@
 <?php
 
-class AjoutDevManager extends AjoutDev {
+class AjoutRealManager extends AjoutReal {
     private $_db;
     private $_contactArray = array();
     
@@ -8,14 +8,14 @@ class AjoutDevManager extends AjoutDev {
         $this->_db = $db;
     }
     
-    public function addDev(array $data) {
+    public function addReal(array $data) {
         //var_dump($data);
-        $query="select add_dev(:Nom_dev,:Pays_dev) as retour" ;
+        $query="select add_real(:Nom_real,:Pays_real) as retour" ;
         try {
             $id=null;
             $statement = $this->_db->prepare($query);		
-            $statement->bindValue(1, $data['Nom_dev'], PDO::PARAM_STR);
-            $statement->bindValue(2, $data['Pays_dev'], PDO::PARAM_STR);
+            $statement->bindValue(1, $data['Nom_real'], PDO::PARAM_STR);
+            $statement->bindValue(2, $data['Pays_real'], PDO::PARAM_STR);
 
             $statement->execute();
             $retour = $statement->fetchColumn(0);

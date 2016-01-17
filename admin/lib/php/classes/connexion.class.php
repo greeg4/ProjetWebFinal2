@@ -1,5 +1,5 @@
 <?php
-//singleton : à tout moment , un seul ovbjet ne peut exister
+
 class Connexion
 {
 
