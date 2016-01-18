@@ -14,7 +14,7 @@ class AjoutDvdManager extends AjoutDvd {
         $this->_db = $db;
     }
 
-    //Renvoie les id des categories
+    // GENRE
     public function getGenreId() {
         try {
 
@@ -57,6 +57,7 @@ class AjoutDvdManager extends AjoutDvd {
         return $_Genre;
     }
 
+    // REALISATEUR
     public function getRealId() {
         try {
 
@@ -99,6 +100,7 @@ class AjoutDvdManager extends AjoutDvd {
         return $_Realisateur;
     }
 
+    // SUPPORT
     public function getSupportId() {
         try {
 
@@ -118,7 +120,7 @@ class AjoutDvdManager extends AjoutDvd {
             }
         }
         return $_IdSupport;
-   }
+    }
 
     public function getNomSupp() {
         try {
@@ -143,7 +145,6 @@ class AjoutDvdManager extends AjoutDvd {
 
     public function adddvd(array $data) {
 
-        //var_dump($data);
         $query = "select adddvd(:Titre_dvd, :Prix_dvd, :Genre_dvd, :Realisateur_dvd, :Support_dvd) as retour";
         try {
             $id = null;

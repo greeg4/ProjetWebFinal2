@@ -9,7 +9,7 @@ foreach (glob('./admin/lib/css/*.css') as $css) {
     $styles[$i2] = $css;
     $i2++;
 }
-$scripts = array(); //stocker tous les fichiers d'inlinemod pour les lier plus loin
+$scripts = array();
 $i = 0;
 foreach (glob('../admin/lib/js/jquery/*.js') as $js) {
     $fichierJs[$i] = $js;
@@ -63,10 +63,10 @@ foreach (glob('../admin/lib/js/jquery/*.js') as $js) {
             <section id="all">
                 <div class="exemple" id="ex2">
                     <?php
-                    //quand on arrive sur le site 
+                    //arrivee sur le site 
                     if (!isset($_SESSION['page'])) {
                         $_SESSION['page'] = "accueil";
-                    }  //si on a cliqué sur un lien du menu
+                    }  //choix parmi le menu
                     if (isset($_GET['page'])) {
                         $_SESSION['page'] = $_GET['page'];
                     }

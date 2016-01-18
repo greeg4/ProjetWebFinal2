@@ -6,7 +6,6 @@ if (isset($_POST['submit_login'])) {
         $_SESSION['admin'] = 1;
         $message = "Authentifié!";
         header('Location: http://localhost/ProjetWebFinal2/admin/index.php');
-        //exit;
     } else {
         $message = $retour;
         $message = "Données non connues de notre systeme. Pour nous contacter passé par le formulaire contact en cliquant sur 'Annuler'";

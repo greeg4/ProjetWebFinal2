@@ -6,7 +6,7 @@ $texteAcc = $accueilManager->getTexteAcc();
 
 
 if (count($texteAcc) == 0) {
-    echo "rien";
+    echo "Rien";
 } else {
 
     for ($i = 0; $i < count($texteAcc); $i++) {
@@ -17,20 +17,20 @@ if (count($texteAcc) == 0) {
 <img src="../admin/images/banniereAccueilUser.png" alt="Accueil User" />
 &nbsp;
 <div id="mot" class="up txtA">
-<?php
-for ($i = 0; $i < count($texteAcc); $i++) {
-    print "<br/>";
-    utf8_decode(print $texteAcc[$i]->mot);
-    print "<br/>";
-}
-?>
+    <?php
+    for ($i = 0; $i < count($texteAcc); $i++) {
+        print "<br/>";
+        utf8_decode(print $texteAcc[$i]->mot);
+        print "<br/>";
+    }
+    ?>
 </div>
 
 
 <p><span class="txtSa"> Nous ferons tout pour satisfaire votre demande. </span>
 </p>
-    <?php
-    ?>
+<?php
+?>
 
 <section id="avertisst">    
     Nous ne reprenons aucun article déballé !!  
