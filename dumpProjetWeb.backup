@@ -1,0 +1,882 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.3.5
+-- Dumped by pg_dump version 9.3.5
+-- Started on 2016-01-17 15:25:49
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 201 (class 3079 OID 11750)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2060 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 214 (class 1255 OID 65825)
+-- Name: add_contact(text, text, text, text, text); Type: FUNCTION; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE FUNCTION add_contact(text, text, text, text, text) RETURNS integer
+    LANGUAGE plpgsql
+    AS $_$
+  declare n_sexe alias for $1;
+  declare n_nom alias for $2;
+  declare n_prenom alias for $3;
+  declare n_comm alias for $4;
+  declare n_email alias for $5;
+  declare retour integer;
+  declare id integer;
+begin
+ 	insert into contact(sexe,nom,prenom,comm,email) 
+	values (n_sexe,n_nom,n_prenom,n_comm,n_email);
+        select into id idContact from contact where sexe=n_sexe and nom=n_nom 
+        and prenom=n_prenom and comm=n_comm and email=n_email;
+        if not found	then
+		retour=0;
+	else 
+		retour=1;
+	end if;
+        return retour;
+end;
+$_$;
+
+
+ALTER FUNCTION public.add_contact(text, text, text, text, text) OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 215 (class 1255 OID 65826)
+-- Name: add_real(text, text); Type: FUNCTION; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE FUNCTION add_real(text, text) RETURNS integer
+    LANGUAGE plpgsql
+    AS $_$
+  declare n_nom alias for $1;
+  declare n_pays alias for $2;
+  declare retour integer;
+  declare id integer;
+begin
+ 	insert into realisateur(nomReal,paysReal) 
+	values (n_nom,n_pays);
+        select into id idReal from realisateur where nomReal=n_nom and paysReal=n_pays;
+
+        if not found	then
+		retour=0;
+	else 
+		retour=1;
+	end if;
+        return retour;
+end;
+$_$;
+
+
+ALTER FUNCTION public.add_real(text, text) OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 218 (class 1255 OID 65827)
+-- Name: addachat(integer, integer); Type: FUNCTION; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE FUNCTION addachat(integer, integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $_$
+    declare f_client alias for $1;
+    declare f_dvd alias for $2;
+    declare id integer;
+    declare idc integer;
+    declare retour integer;
+    begin
+	select into idc idclient from client where idclient=f_client;
+	if not found then
+	    retour=2;
+	else
+	    insert into achat(idclient, iddvd, dateachat) values (f_client, f_dvd, current_date);
+	    select into id idachat from achat where idclient=f_client and
+						  iddvd=f_dvd and
+						  dateachat=current_date;
+	    if not found then
+		retour=0;
+	    else
+	        retour=1;
+	    end if;
+    end if;
+    return retour;
+end;
+$_$;
+
+
+ALTER FUNCTION public.addachat(integer, integer) OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 219 (class 1255 OID 65828)
+-- Name: addclient(text, text, text, text, integer, text, text); Type: FUNCTION; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE FUNCTION addclient(text, text, text, text, integer, text, text) RETURNS integer
+    LANGUAGE plpgsql
+    AS $_$
+    declare f_nom alias for $1;
+    declare f_pr alias for $2;
+    declare f_a alias for $3;
+    declare f_v alias for $4;
+    declare f_c alias for $5;
+    declare f_pa alias for $6;
+    declare f_tel alias for $7;
+    declare id integer;
+    begin
+        insert into client(nom, prenom, adresse, ville, cp, pays, numtel) values (f_nom, f_pr, f_a, f_v, f_c, f_pa, f_tel);
+        select into id idclient from client where nom=f_nom and prenom=f_pr and adresse=f_a and ville=f_v and cp=f_c and pays=f_pa and numtel=f_tel;
+	if not found then
+	    id=0;
+	end if;
+	return id;
+end;
+$_$;
+
+
+ALTER FUNCTION public.addclient(text, text, text, text, integer, text, text) OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 217 (class 1255 OID 65829)
+-- Name: adddvd(text, real, integer, integer, integer); Type: FUNCTION; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE FUNCTION adddvd(text, real, integer, integer, integer) RETURNS integer
+    LANGUAGE plpgsql
+    AS $_$
+    declare n_titre alias for $1;
+    declare n_prix alias for $2;
+    declare n_genre alias for $3;
+    declare n_real alias for $4;
+    declare n_supp alias for $5;
+    declare retour integer;
+    declare id integer;
+BEGIN
+    insert into dvd(titre, prix, idGenre, idReal, idSupp) values (n_titre, n_prix, n_genre, n_real, n_supp);
+    select into id idDVD from dvd where titre=n_titre and prix=n_prix and idGenre=n_genre and idReal=n_real and idSupp=n_supp;
+    if not found then
+	retour=0;
+    else
+	retour=1;
+    end if;
+    return retour;
+end;
+$_$;
+
+
+ALTER FUNCTION public.adddvd(text, real, integer, integer, integer) OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 216 (class 1255 OID 65830)
+-- Name: verifier_connexion(text, text); Type: FUNCTION; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE FUNCTION verifier_connexion(text, text) RETURNS integer
+    LANGUAGE plpgsql
+    AS $_$	
+declare f_login alias for $1;
+	declare f_password alias for $2;
+	declare id integer;
+	declare retour integer;
+begin
+	select into id idadmin from admin where nomadmin=f_login and mpadmin=f_password;
+	if not found
+	then
+	  retour=0;
+	else
+	  retour=1;
+	end if;
+	return retour;
+end;
+$_$;
+
+
+ALTER FUNCTION public.verifier_connexion(text, text) OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 171 (class 1259 OID 65575)
+-- Name: Possede_idpossede_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE "Possede_idpossede_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Possede_idpossede_seq" OWNER TO "ProjetBrouillon";
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 170 (class 1259 OID 65566)
+-- Name: accueilmots; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE accueilmots (
+    mot text NOT NULL
+);
+
+
+ALTER TABLE public.accueilmots OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 172 (class 1259 OID 65577)
+-- Name: achat_a_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE achat_a_seq
+    START WITH 13
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.achat_a_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 195 (class 1259 OID 65781)
+-- Name: achat; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE achat (
+    idachat integer DEFAULT nextval('achat_a_seq'::regclass) NOT NULL,
+    idclient integer NOT NULL,
+    iddvd integer NOT NULL,
+    dateachat date
+);
+
+
+ALTER TABLE public.achat OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 173 (class 1259 OID 65579)
+-- Name: achat_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE achat_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.achat_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 174 (class 1259 OID 65581)
+-- Name: admin_a_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE admin_a_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admin_a_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 196 (class 1259 OID 65797)
+-- Name: admin; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE admin (
+    idadmin integer DEFAULT nextval('admin_a_seq'::regclass) NOT NULL,
+    nomadmin text NOT NULL,
+    mpadmin text NOT NULL
+);
+
+
+ALTER TABLE public.admin OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 175 (class 1259 OID 65583)
+-- Name: cat_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE cat_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cat_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 177 (class 1259 OID 65587)
+-- Name: client_a_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE client_a_seq
+    START WITH 4
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.client_a_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 188 (class 1259 OID 65622)
+-- Name: client; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE client (
+    idclient integer DEFAULT nextval('client_a_seq'::regclass) NOT NULL,
+    nom text NOT NULL,
+    prenom text NOT NULL,
+    adresse text,
+    ville text,
+    cp integer,
+    pays text,
+    numtel text NOT NULL
+);
+
+
+ALTER TABLE public.client OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 178 (class 1259 OID 65589)
+-- Name: client_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE client_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.client_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 198 (class 1259 OID 65808)
+-- Name: contact; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE contact (
+    idcontact integer NOT NULL,
+    sexe text NOT NULL,
+    nom text NOT NULL,
+    prenom text NOT NULL,
+    comm text NOT NULL,
+    email text NOT NULL
+);
+
+
+ALTER TABLE public.contact OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 179 (class 1259 OID 65591)
+-- Name: contact_idcontact_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE contact_idcontact_seq
+    START WITH 19
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.contact_idcontact_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 197 (class 1259 OID 65806)
+-- Name: contact_idcontact_seq1; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE contact_idcontact_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.contact_idcontact_seq1 OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 2061 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: contact_idcontact_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER SEQUENCE contact_idcontact_seq1 OWNED BY contact.idcontact;
+
+
+--
+-- TOC entry 194 (class 1259 OID 65732)
+-- Name: dvd; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE dvd (
+    iddvd integer NOT NULL,
+    titre text NOT NULL,
+    prix real NOT NULL,
+    idgenre integer,
+    idreal integer,
+    idsupp integer
+);
+
+
+ALTER TABLE public.dvd OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 184 (class 1259 OID 65601)
+-- Name: dvd_a_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE dvd_a_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dvd_a_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 182 (class 1259 OID 65597)
+-- Name: dvd_iddvd_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE dvd_iddvd_seq
+    START WITH 5
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dvd_iddvd_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 193 (class 1259 OID 65730)
+-- Name: dvd_iddvd_seq1; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE dvd_iddvd_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dvd_iddvd_seq1 OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 2062 (class 0 OID 0)
+-- Dependencies: 193
+-- Name: dvd_iddvd_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER SEQUENCE dvd_iddvd_seq1 OWNED BY dvd.iddvd;
+
+
+--
+-- TOC entry 183 (class 1259 OID 65599)
+-- Name: dvd_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE dvd_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dvd_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 176 (class 1259 OID 65585)
+-- Name: genre_a_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE genre_a_seq
+    START WITH 7
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.genre_a_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 189 (class 1259 OID 65653)
+-- Name: genre; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE genre (
+    idgenre integer DEFAULT nextval('genre_a_seq'::regclass) NOT NULL,
+    genre text NOT NULL
+);
+
+
+ALTER TABLE public.genre OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 191 (class 1259 OID 65680)
+-- Name: realisateur; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE realisateur (
+    idreal integer NOT NULL,
+    nomreal text NOT NULL,
+    paysreal text
+);
+
+
+ALTER TABLE public.realisateur OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 185 (class 1259 OID 65603)
+-- Name: support_a_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE support_a_seq
+    START WITH 15
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.support_a_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 192 (class 1259 OID 65710)
+-- Name: support; Type: TABLE; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+CREATE TABLE support (
+    idsupp integer DEFAULT nextval('support_a_seq'::regclass) NOT NULL,
+    nomsupp text NOT NULL
+);
+
+
+ALTER TABLE public.support OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 199 (class 1259 OID 65821)
+-- Name: dvdcat; Type: VIEW; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE VIEW dvdcat AS
+ SELECT d.iddvd,
+    d.titre,
+    d.prix,
+    g.genre,
+    r.nomreal AS "réalisateur",
+    s.nomsupp AS support
+   FROM dvd d,
+    support s,
+    genre g,
+    realisateur r
+  WHERE (((d.idgenre = g.idgenre) AND (d.idsupp = s.idsupp)) AND (d.idreal = r.idreal));
+
+
+ALTER TABLE public.dvdcat OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 200 (class 1259 OID 73728)
+-- Name: dvdcat2; Type: VIEW; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE VIEW dvdcat2 AS
+ SELECT d.iddvd,
+    d.titre,
+    d.prix,
+    g.genre,
+    r.nomreal AS realisateur,
+    s.nomsupp AS support
+   FROM dvd d,
+    support s,
+    genre g,
+    realisateur r
+  WHERE (((d.idgenre = g.idgenre) AND (d.idsupp = s.idsupp)) AND (d.idreal = r.idreal));
+
+
+ALTER TABLE public.dvdcat2 OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 187 (class 1259 OID 65607)
+-- Name: public_a_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE public_a_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.public_a_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 180 (class 1259 OID 65593)
+-- Name: real_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE real_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.real_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 181 (class 1259 OID 65595)
+-- Name: realisateur_idreal_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE realisateur_idreal_seq
+    START WITH 8
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.realisateur_idreal_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 190 (class 1259 OID 65678)
+-- Name: realisateur_idreal_seq1; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE realisateur_idreal_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.realisateur_idreal_seq1 OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 2063 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: realisateur_idreal_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER SEQUENCE realisateur_idreal_seq1 OWNED BY realisateur.idreal;
+
+
+--
+-- TOC entry 186 (class 1259 OID 65605)
+-- Name: support_seq; Type: SEQUENCE; Schema: public; Owner: ProjetBrouillon
+--
+
+CREATE SEQUENCE support_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.support_seq OWNER TO "ProjetBrouillon";
+
+--
+-- TOC entry 1922 (class 2604 OID 65811)
+-- Name: idcontact; Type: DEFAULT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY contact ALTER COLUMN idcontact SET DEFAULT nextval('contact_idcontact_seq1'::regclass);
+
+
+--
+-- TOC entry 1919 (class 2604 OID 65735)
+-- Name: iddvd; Type: DEFAULT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY dvd ALTER COLUMN iddvd SET DEFAULT nextval('dvd_iddvd_seq1'::regclass);
+
+
+--
+-- TOC entry 1917 (class 2604 OID 65683)
+-- Name: idreal; Type: DEFAULT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY realisateur ALTER COLUMN idreal SET DEFAULT nextval('realisateur_idreal_seq1'::regclass);
+
+
+--
+-- TOC entry 1934 (class 2606 OID 65786)
+-- Name: achat_pk; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY achat
+    ADD CONSTRAINT achat_pk PRIMARY KEY (idachat);
+
+
+--
+-- TOC entry 1936 (class 2606 OID 65805)
+-- Name: admin_pkey; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY admin
+    ADD CONSTRAINT admin_pkey PRIMARY KEY (idadmin);
+
+
+--
+-- TOC entry 1924 (class 2606 OID 65630)
+-- Name: client_pk; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY client
+    ADD CONSTRAINT client_pk PRIMARY KEY (idclient);
+
+
+--
+-- TOC entry 1938 (class 2606 OID 65816)
+-- Name: contact_pkey; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY contact
+    ADD CONSTRAINT contact_pkey PRIMARY KEY (idcontact);
+
+
+--
+-- TOC entry 1932 (class 2606 OID 65740)
+-- Name: dvd_pk; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY dvd
+    ADD CONSTRAINT dvd_pk PRIMARY KEY (iddvd);
+
+
+--
+-- TOC entry 1926 (class 2606 OID 65661)
+-- Name: genre_pk; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY genre
+    ADD CONSTRAINT genre_pk PRIMARY KEY (idgenre);
+
+
+--
+-- TOC entry 1928 (class 2606 OID 65688)
+-- Name: real_pk; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY realisateur
+    ADD CONSTRAINT real_pk PRIMARY KEY (idreal);
+
+
+--
+-- TOC entry 1930 (class 2606 OID 65718)
+-- Name: support_pk; Type: CONSTRAINT; Schema: public; Owner: ProjetBrouillon; Tablespace: 
+--
+
+ALTER TABLE ONLY support
+    ADD CONSTRAINT support_pk PRIMARY KEY (idsupp);
+
+
+--
+-- TOC entry 1942 (class 2606 OID 65787)
+-- Name: achat_idclient_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY achat
+    ADD CONSTRAINT achat_idclient_fkey FOREIGN KEY (idclient) REFERENCES client(idclient);
+
+
+--
+-- TOC entry 1943 (class 2606 OID 65792)
+-- Name: dvd_fk; Type: FK CONSTRAINT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY achat
+    ADD CONSTRAINT dvd_fk FOREIGN KEY (iddvd) REFERENCES dvd(iddvd);
+
+
+--
+-- TOC entry 1939 (class 2606 OID 65741)
+-- Name: genre_fk; Type: FK CONSTRAINT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY dvd
+    ADD CONSTRAINT genre_fk FOREIGN KEY (idgenre) REFERENCES genre(idgenre);
+
+
+--
+-- TOC entry 1940 (class 2606 OID 65746)
+-- Name: real_fk; Type: FK CONSTRAINT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY dvd
+    ADD CONSTRAINT real_fk FOREIGN KEY (idreal) REFERENCES realisateur(idreal);
+
+
+--
+-- TOC entry 1941 (class 2606 OID 65751)
+-- Name: support_fk; Type: FK CONSTRAINT; Schema: public; Owner: ProjetBrouillon
+--
+
+ALTER TABLE ONLY dvd
+    ADD CONSTRAINT support_fk FOREIGN KEY (idsupp) REFERENCES support(idsupp);
+
+
+--
+-- TOC entry 2059 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2016-01-17 15:25:50
+
+--
+-- PostgreSQL database dump complete
+--
+
